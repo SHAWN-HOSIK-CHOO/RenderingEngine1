@@ -10,6 +10,11 @@ public:
 
 	void Activate();
 
+	void Unload();
+
+	unsigned int GetNumVerts() { return mNumVerts; }
+	unsigned int GetNumIndices() { return mNumIndices; }
+
 private:
 	unsigned int mNumVerts;
 	unsigned int mNumIndices;

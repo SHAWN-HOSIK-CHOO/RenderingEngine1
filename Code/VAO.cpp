@@ -20,6 +20,11 @@ VAO::~VAO()
 
 void VAO::Load(const float* verts, unsigned int vnum, const unsigned int* indices, unsigned int inum)
 {
+	mNumVerts = vnum;
+	mNumIndices = inum;
+
+	//
+
 	glGenVertexArrays(1,&mVAO);
 	glBindVertexArray(mVAO);
 
@@ -38,5 +43,12 @@ void VAO::Load(const float* verts, unsigned int vnum, const unsigned int* indice
 void VAO::Activate()
 {
 	glBindVertexArray(mVAO);
+}
+
+void VAO::Unload()
+{
+	glDeleteBuffers(1, &mVertexBuffer);
+	glDeleteBuffers(1, &mIndexBuffer);
+	glDeleteVertexArrays(1, &mVAO);
 }
 

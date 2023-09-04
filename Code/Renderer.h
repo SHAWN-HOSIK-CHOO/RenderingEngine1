@@ -1,7 +1,11 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
-#include <iostream>
+#include <string>
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <vector>
 
 class Renderer
 {
@@ -11,18 +15,29 @@ public:
 
 	bool Initialize();
 	void Render();
-	void CreateVAO(const float* v,unsigned int nv,const unsigned int* i,unsigned int ni);
 
 	void SetRunning(bool sel) { mKeepRunning = sel; }
 	bool KeepRunning() { return mKeepRunning; }
+
+	bool CreateShader();
 private:
 	SDL_Window* mWindow;
 	SDL_GLContext mContext;
-
-	class VAO* mVertexArray;
 
 	int mWidth;
 	int mHeight;
 
 	bool mKeepRunning;
+	
+	glm::mat4 mVP;
+	glm::mat4 mView;
+	glm::mat4 mProj;
+
+	std::vector<class Model*> mModels;
+	std::vector<class Mesh*>  mMeshes;
+
+	//class Mesh* mCube;
+	class VAO* mVertexArray;
+
+	class Shader* mShader;
 };

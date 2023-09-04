@@ -27,6 +27,15 @@
     <ClCompile Include="Code\VAO.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Shader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Model.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Mesh.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Renderer.h">
@@ -35,5 +44,22 @@
     <ClInclude Include="Code\VAO.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Shader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Model.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Mesh.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Code\BasicVert.vert">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Code\BasicFrag.frag">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
