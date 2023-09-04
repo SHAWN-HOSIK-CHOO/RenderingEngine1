@@ -130,16 +130,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Code\Component.cpp" />
     <ClCompile Include="Code\Main.cpp" />
     <ClCompile Include="Code\Mesh.cpp" />
     <ClCompile Include="Code\Model.cpp" />
+    <ClCompile Include="Code\MoveComponent.cpp" />
     <ClCompile Include="Code\Renderer.cpp" />
     <ClCompile Include="Code\Shader.cpp" />
     <ClCompile Include="Code\VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\Component.h" />
     <ClInclude Include="Code\Mesh.h" />
     <ClInclude Include="Code\Model.h" />
+    <ClInclude Include="Code\MoveComponent.h" />
     <ClInclude Include="Code\Renderer.h" />
     <ClInclude Include="Code\Shader.h" />
     <ClInclude Include="Code\VAO.h" />

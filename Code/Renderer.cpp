@@ -3,6 +3,8 @@
 #include "Shader.h"
 #include "Model.h"
 #include "Mesh.h"
+#include "Component.h"
+#include "MoveComponent.h"
 
 Renderer::Renderer(int width, int height)
 	:mWidth(width)
@@ -88,6 +90,13 @@ void Renderer::ProcessInput()
 			break;
 		}
 	}
+
+	const Uint8* keyboardInput = SDL_GetKeyboardState(nullptr);
+
+	for (auto model : mModels)
+	{
+		model->ProcessInput(keyboardInput);
+	}
 }
 
 void Renderer::Update()
@@ -152,6 +161,8 @@ bool Renderer::Load()
 
 	Model* cubeModel1 = new Model(this);
 	cubeModel1->AddMesh(cubeMesh1);
+	MoveComponent* mc1 = new MoveComponent(cubeModel1);
+	cubeModel1->AddComponent(mc1);
 	cubeModel1->ComputeWorldTransform();
 	mModels.emplace_back(cubeModel1);
 

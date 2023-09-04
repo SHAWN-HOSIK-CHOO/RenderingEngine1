@@ -3,7 +3,8 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "VAO.h"
-#include <SDL2/SDL_log.h>
+#include "Component.h"
+
 
 Model::Model(Renderer* renderer)
 	:mPosition(glm::vec3(1.0f))
@@ -34,6 +35,11 @@ void Model::AddMesh(Mesh* mesh)
 	mMesh = mesh;
 }
 
+void Model::AddComponent(Component* comp)
+{
+	mComponents.emplace_back(comp);
+}
+
 void Model::Unload()
 {
 	delete mMesh;
@@ -51,5 +57,18 @@ void Model::Draw()
 
 void Model::Update(float deltaTime)
 {
+	ComputeWorldTransform();
+	for (auto comp : mComponents)
+	{
+		comp->Update(deltaTime);
+	}
+	ComputeWorldTransform();
+}
 
+void Model::ProcessInput(const Uint8* state)
+{
+	for (auto comp : mComponents)
+	{
+		comp->ProcessInput(state);
+	}
 }
