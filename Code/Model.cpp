@@ -48,3 +48,8 @@ void Model::Draw()
 {
 	mMesh->Draw();
 }
+
+void Model::Update(float deltaTime)
+{
+
+}

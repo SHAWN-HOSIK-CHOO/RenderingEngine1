@@ -20,14 +20,17 @@ public:
 	void Activate();
 
 	void Draw();
+
+	void Update(float deltaTime);
+
 	//Getters && Setters
-	void SetPosition(glm::vec3& pos) { mPosition = pos; }
+	void SetPosition(const glm::vec3& pos) { mPosition = pos; }
 	glm::vec3& GetPosition() { return mPosition; }
 
-	void SetRotation(glm::quat& rot) { mRotation = rot; }
+	void SetRotation(const glm::quat& rot) { mRotation = rot; }
 	glm::quat& GetRotation() { return mRotation; }
 
-	void SetScale(float scale) { mScale = glm::scale(glm::vec3(scale)); }
+	void SetScale(const float scale) { mScale = glm::scale(glm::vec3(scale)); }
 	glm::mat4& GetScale() { return mScale; }
 
 	glm::mat4& GetWorldTransMatrix() { return mWorldTrans; }

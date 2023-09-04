@@ -9,6 +9,7 @@ Renderer::Renderer(int width, int height)
 	, mHeight(height)
 	,mKeepRunning(true)
 	,mShader(nullptr)
+	,mdeltaTime(0.0f)
 {
 }
 
@@ -57,7 +58,54 @@ bool Renderer::Initialize()
 		return false;
 	}
 
+	mTicks = SDL_GetTicks();
+
 	return true;
+}
+
+void Renderer::RunLoop()
+{
+	while(mKeepRunning)
+	{
+		ProcessInput();
+		Update();
+		Render();
+	}
+}
+
+void Renderer::ProcessInput()
+{
+	SDL_Event e;
+
+	while (SDL_PollEvent(&e))
+	{
+		switch (e.type)
+		{
+		case SDL_QUIT:
+			mKeepRunning = false;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Renderer::Update()
+{
+	while (!SDL_TICKS_PASSED(SDL_GetTicks(),mTicks + 16));
+
+	mdeltaTime = (SDL_GetTicks() - mTicks) / 1000.0f;
+	if (mdeltaTime > 0.05f)
+	{
+		mdeltaTime = 0.05f;
+	}
+
+	mTicks = SDL_GetTicks();
+
+	for (auto model : mModels)
+	{
+		model->Update(mdeltaTime);
+	}
 }
 
 void Renderer::Render()
@@ -67,14 +115,16 @@ void Renderer::Render()
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
-	;
-
 	mShader->Activate();
 	mShader->SetViewProjMatrix(mVP);
-	mShader->SetWorldTransMatrix(glm::mat4(1.0f));
-
-	mModels.at(0)->Activate();
-	mModels.at(0)->Draw();
+	
+	auto it = mModels.begin();
+	for (;it != mModels.end(); it++)
+	{
+		mShader->SetWorldTransMatrix((*it)->GetWorldTransMatrix());
+		(*it)->Activate();
+		(*it)->Draw();
+	}
 	
 
 	SDL_GL_SwapWindow(mWindow);
@@ -82,18 +132,34 @@ void Renderer::Render()
 
 bool Renderer::Load()
 {
-	Mesh* cubeMesh = new Mesh();
-	if (!cubeMesh->Load("plz"))
+	Mesh* cubeMesh1 = new Mesh();
+	if (!cubeMesh1->Load("plz"))
 	{
-		SDL_Log("Mesh Loading Failed");
+		SDL_Log("Mesh1 Loading Failed");
 		return false;
 	}
-	cubeMesh->Activate();
-	mMeshes.emplace_back(cubeMesh);
+	cubeMesh1->Activate();
+	mMeshes.emplace_back(cubeMesh1);
 
-	Model* cubeModel = new Model(this);
-	cubeModel->AddMesh(cubeMesh);
-	mModels.emplace_back(cubeModel);
+	Mesh* cubeMesh2 = new Mesh();
+	if (!cubeMesh2->Load("plz"))
+	{
+		SDL_Log("Mesh2 Loading Failed");
+		return false;
+	}
+	cubeMesh2->Activate();
+	mMeshes.emplace_back(cubeMesh2);
+
+	Model* cubeModel1 = new Model(this);
+	cubeModel1->AddMesh(cubeMesh1);
+	cubeModel1->ComputeWorldTransform();
+	mModels.emplace_back(cubeModel1);
+
+	Model* cubeModel2 = new Model(this);
+	cubeModel2->AddMesh(cubeMesh1);
+	cubeModel2->SetPosition(glm::vec3(-3.0f,0.0f,-3.0f));
+	cubeModel2->ComputeWorldTransform();
+	mModels.emplace_back(cubeModel2);
 
 	return true;
 }

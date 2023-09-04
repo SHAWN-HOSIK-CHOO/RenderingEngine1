@@ -3,24 +3,12 @@
 int main(int argv, char** args)
 {
     Renderer* renderer = new Renderer(1024,768);
-    renderer->Initialize();
-
-    bool keep_window_open = true;
-    while (keep_window_open)
+    if (renderer->Initialize())
     {
-        SDL_Event e;
-        while (SDL_PollEvent(&e) > 0)
-        {
-            switch (e.type)
-            {
-            case SDL_QUIT:
-                keep_window_open = false;
-                break;
-            }
-
-            renderer->Render();
-        }
+        renderer->RunLoop();
     }
+
+   
 
     return 0;
 }

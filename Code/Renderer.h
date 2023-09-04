@@ -14,6 +14,11 @@ public:
 	~Renderer();
 
 	bool Initialize();
+
+	void RunLoop();
+
+	void ProcessInput();
+	void Update();
 	void Render();
 
 	bool Load();
@@ -31,6 +36,9 @@ private:
 
 	bool mKeepRunning;
 	
+	Uint32 mTicks;
+	float mdeltaTime;
+
 	glm::mat4 mVP;
 	glm::mat4 mView;
 	glm::mat4 mProj;
