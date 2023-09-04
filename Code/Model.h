@@ -30,6 +30,8 @@ public:
 	void SetScale(float scale) { mScale = glm::scale(glm::vec3(scale)); }
 	glm::mat4& GetScale() { return mScale; }
 
+	glm::mat4& GetWorldTransMatrix() { return mWorldTrans; }
+
 	class Mesh* GetMesh() { return mMesh; }
 private:
 	glm::vec3 mPosition;

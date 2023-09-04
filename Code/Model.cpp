@@ -44,8 +44,6 @@ void Model::Activate()
 	mMesh->Activate();
 }
 
-
-
 void Model::Draw()
 {
 	mMesh->Draw();

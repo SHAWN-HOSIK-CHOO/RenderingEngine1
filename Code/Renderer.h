@@ -16,6 +16,8 @@ public:
 	bool Initialize();
 	void Render();
 
+	bool Load();
+
 	void SetRunning(bool sel) { mKeepRunning = sel; }
 	bool KeepRunning() { return mKeepRunning; }
 
@@ -35,9 +37,6 @@ private:
 
 	std::vector<class Model*> mModels;
 	std::vector<class Mesh*>  mMeshes;
-
-	//class Mesh* mCube;
-	class VAO* mVertexArray;
 
 	class Shader* mShader;
 };
