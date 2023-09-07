@@ -9,4 +9,5 @@ void main()
 {
 	vec4 pos = vec4(inPosition,1.0);
 	gl_Position = uViewProj * uWorldTrans * pos;
+	
 }

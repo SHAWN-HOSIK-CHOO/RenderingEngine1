@@ -7,7 +7,7 @@
 
 
 Model::Model(Renderer* renderer)
-	:mPosition(glm::vec3(1.0f))
+	:mPosition(glm::vec3(0.0f))
 	, mRotation(glm::quat(glm::vec3(0.0f)))
 	, mScale(glm::scale(glm::vec3(1.0f)))
 	, mOwner(renderer)
@@ -28,6 +28,7 @@ void Model::ComputeWorldTransform()
 	glm::mat4 S = mScale;
 
 	mWorldTrans = T * R * S;
+	
 }
 
 void Model::AddMesh(Mesh* mesh)

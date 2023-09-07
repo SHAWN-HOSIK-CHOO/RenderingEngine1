@@ -38,11 +38,13 @@ public:
 
 	glm::mat4& GetWorldTransMatrix() { return mWorldTrans; }
 
-	glm::vec3 GetForward() { return glm::toMat4(mRotation) * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f); }
+	glm::vec3 GetForward() { return glm::toMat4(mRotation) * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f); }
 
-	glm::vec3 GetRight() { return glm::toMat4(mRotation) * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f); }
+	glm::vec3 GetRight() { return glm::toMat4(mRotation) * glm::vec4(-1.0f, 0.0f, 0.0f, 0.0f); }
 
 	class Mesh* GetMesh() { return mMesh; }
+
+	class Renderer* GetRenderer() { return mOwner; }
 private:
 	glm::vec3 mPosition;
 	glm::quat mRotation;

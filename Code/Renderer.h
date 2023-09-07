@@ -27,6 +27,8 @@ public:
 	bool KeepRunning() { return mKeepRunning; }
 
 	bool CreateShader();
+
+	bool* GetKeys() { return mKeys; }
 private:
 	SDL_Window* mWindow;
 	SDL_GLContext mContext;
@@ -47,4 +49,6 @@ private:
 	std::vector<class Mesh*>  mMeshes;
 
 	class Shader* mShader;
+
+	bool* mKeys;
 };

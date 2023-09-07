@@ -137,6 +137,7 @@
     <ClCompile Include="Code\MoveComponent.cpp" />
     <ClCompile Include="Code\Renderer.cpp" />
     <ClCompile Include="Code\Shader.cpp" />
+    <ClCompile Include="Code\Texture.cpp" />
     <ClCompile Include="Code\VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +147,7 @@
     <ClInclude Include="Code\MoveComponent.h" />
     <ClInclude Include="Code\Renderer.h" />
     <ClInclude Include="Code\Shader.h" />
+    <ClInclude Include="Code\Texture.h" />
     <ClInclude Include="Code\VAO.h" />
   </ItemGroup>
   <ItemGroup>

@@ -20,4 +20,6 @@ private:
 	float mForwardSpeed;
 	float mRotateSpeed;
 	float mStrafeSpeed;
+
+	bool* mKeys;
 };

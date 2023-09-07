@@ -12,7 +12,13 @@ Renderer::Renderer(int width, int height)
 	,mKeepRunning(true)
 	,mShader(nullptr)
 	,mdeltaTime(0.0f)
+	,mKeys(nullptr)
 {
+	mKeys = new bool[322];
+	for (int i = 0; i < 322; i++)
+	{
+		mKeys[i] = false;
+	}
 }
 
 Renderer::~Renderer()
@@ -86,6 +92,12 @@ void Renderer::ProcessInput()
 		case SDL_QUIT:
 			mKeepRunning = false;
 			break;
+		case SDL_KEYDOWN:
+			mKeys[e.key.keysym.sym] = true;
+			break;
+		case SDL_KEYUP:
+			mKeys[e.key.keysym.sym] = false;
+			break;
 		default:
 			break;
 		}
@@ -125,6 +137,7 @@ void Renderer::Render()
 	glDisable(GL_BLEND);
 
 	mShader->Activate();
+	
 	mShader->SetViewProjMatrix(mVP);
 	
 	auto it = mModels.begin();
@@ -161,14 +174,17 @@ bool Renderer::Load()
 
 	Model* cubeModel1 = new Model(this);
 	cubeModel1->AddMesh(cubeMesh1);
+	cubeModel1->SetPosition(glm::vec3(0.0f));
+	cubeModel1->ComputeWorldTransform();
+
 	MoveComponent* mc1 = new MoveComponent(cubeModel1);
 	cubeModel1->AddComponent(mc1);
-	cubeModel1->ComputeWorldTransform();
 	mModels.emplace_back(cubeModel1);
 
+	
 	Model* cubeModel2 = new Model(this);
 	cubeModel2->AddMesh(cubeMesh1);
-	cubeModel2->SetPosition(glm::vec3(-3.0f,0.0f,-3.0f));
+	cubeModel2->SetPosition(glm::vec3(3.0f,0.0f,-3.0f));
 	cubeModel2->ComputeWorldTransform();
 	mModels.emplace_back(cubeModel2);
 
@@ -184,8 +200,8 @@ bool Renderer::CreateShader()
 		return false;
 	}
 
-	mView = glm::lookAt(glm::vec3(2, 3, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	mProj = glm::perspective(glm::radians(70.0f), static_cast<float>(mWidth) / static_cast<float>(mHeight), 0.05f, 1000.0f);
+	mView = glm::lookAt(glm::vec3(0.0f, 2.0f, -5.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f,0.0f));
+	mProj = glm::perspective(glm::radians(70.0f), static_cast<float>(mWidth) / static_cast<float>(mHeight), 0.1f, 1000.0f);
 	mVP = mProj * mView;
 
 	mShader->SetViewProjMatrix(mVP);
