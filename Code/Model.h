@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <vector>
+#include <string>
 #include <SDL2/SDL.h>
 
 class Model
@@ -16,10 +17,12 @@ public:
 
 	void AddMesh(class Mesh* mesh);
 	void AddComponent(class Component* comp);
+	void AddTexture(const std::string& filePath);
 
 	void Unload();
 
 	void Activate();
+	void ActivateTexture(int index);
 
 	void Draw();
 
@@ -55,6 +58,8 @@ private:
 	class Mesh* mMesh;
 
 	std::vector<class Component*> mComponents;
+
+	std::vector<class Texture*> mTextures;
 
 	class Renderer* mOwner;
 };

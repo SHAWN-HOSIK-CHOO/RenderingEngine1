@@ -5,6 +5,7 @@
 #include "Mesh.h"
 #include "Component.h"
 #include "MoveComponent.h"
+#include "Texture.h"
 
 Renderer::Renderer(int width, int height)
 	:mWidth(width)
@@ -145,6 +146,7 @@ void Renderer::Render()
 	{
 		mShader->SetWorldTransMatrix((*it)->GetWorldTransMatrix());
 		(*it)->Activate();
+		(*it)->ActivateTexture(0); //Temporary index
 		(*it)->Draw();
 	}
 	
@@ -176,6 +178,7 @@ bool Renderer::Load()
 	cubeModel1->AddMesh(cubeMesh1);
 	cubeModel1->SetPosition(glm::vec3(0.0f));
 	cubeModel1->ComputeWorldTransform();
+	cubeModel1->AddTexture("Assets/wall.jpg");
 
 	MoveComponent* mc1 = new MoveComponent(cubeModel1);
 	cubeModel1->AddComponent(mc1);
@@ -186,6 +189,7 @@ bool Renderer::Load()
 	cubeModel2->AddMesh(cubeMesh1);
 	cubeModel2->SetPosition(glm::vec3(3.0f,0.0f,-3.0f));
 	cubeModel2->ComputeWorldTransform();
+	cubeModel2->AddTexture("Assets/wall.jpg");
 	mModels.emplace_back(cubeModel2);
 
 	return true;
@@ -208,3 +212,22 @@ bool Renderer::CreateShader()
 	return true;
 }
 
+Texture* Renderer::GetTexture(const std::string& filePath)
+{
+	Texture* t = nullptr;
+
+	auto it = mTextures.find(filePath);
+
+	if (it == mTextures.end())
+	{
+		t = new Texture(this);
+		t->Load(filePath);
+		mTextures.insert(std::make_pair(filePath,t));
+
+		return t;
+	}
+	else
+	{
+		return it->second;
+	}
+}

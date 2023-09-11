@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "VAO.h"
 #include "Component.h"
+#include "Texture.h"
 
 
 Model::Model(Renderer* renderer)
@@ -41,6 +42,11 @@ void Model::AddComponent(Component* comp)
 	mComponents.emplace_back(comp);
 }
 
+void Model::AddTexture(const std::string& filePath)
+{
+	mTextures.emplace_back(mOwner->GetTexture(filePath));
+}
+
 void Model::Unload()
 {
 	delete mMesh;
@@ -49,6 +55,11 @@ void Model::Unload()
 void Model::Activate()
 {
 	mMesh->Activate();
+}
+
+void Model::ActivateTexture(int index)
+{
+	mTextures.at(index)->Activate();
 }
 
 void Model::Draw()

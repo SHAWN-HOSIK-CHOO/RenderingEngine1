@@ -6,6 +6,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
+#include <unordered_map>
 
 class Renderer
 {
@@ -29,6 +30,8 @@ public:
 	bool CreateShader();
 
 	bool* GetKeys() { return mKeys; }
+
+	class Texture* GetTexture(const std::string& filePath);
 private:
 	SDL_Window* mWindow;
 	SDL_GLContext mContext;
@@ -47,6 +50,7 @@ private:
 
 	std::vector<class Model*> mModels;
 	std::vector<class Mesh*>  mMeshes;
+	std::unordered_map<std::string, class Texture*> mTextures;
 
 	class Shader* mShader;
 

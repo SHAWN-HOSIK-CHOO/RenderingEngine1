@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+#include <vector>
 
 class Mesh
 {
@@ -18,6 +18,6 @@ public:
 	void Draw();
 private:
 	void CreateVAO(const float* v, unsigned int nv, const unsigned int* i, unsigned int ni);
-	
+
 	class VAO* mVertexArray;
 };
